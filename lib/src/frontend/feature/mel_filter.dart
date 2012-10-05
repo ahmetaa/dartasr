@@ -6,6 +6,10 @@ import '../frame_processor.dart';
 import '../framedata.dart';
 import '../../math/log_math.dart';
 
+/**
+ * Creates a Mel Frequency Filter Bank and applies the filter to input power spectrum values.
+ * It uses a similar technique used in Sphinx4 but implementation is different.
+ */
 class MelFilterBank implements FrameProcessor {
   
   double minFreq;
