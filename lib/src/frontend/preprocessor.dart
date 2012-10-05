@@ -7,22 +7,15 @@ import 'framedata.dart';
 import '../math/float_lists.dart';
 
 /**
- * Returns a Dither Frame Processor for normalized data. it adds or substracts normalized half bit's value to each
- * frame value.
- * @param sampleSizeInBits bits of the samples.
- * @return A Frame processor for dithering normalized samples.
+ * Returns a Dither Frame Processor for normalized data. it adds or substracts normalized half bit's value to each 
  */
 FrameProcessor ditherForNormalizedData(int sampleSizeInBits) {
   return new Dither(sampleSizeInBits, true);
 }
 
-
 /**
  * Returns a Dither Frame Processor for actual data. it adds or substracts half bit's value to each
  * sample value.
- *
- * @param sampleSizeInBits bits of the samples.
- * @return A Frame processor for dithering actual sample values.
  */
 FrameProcessor dither(int sampleSizeInBits) {
     return new Dither(sampleSizeInBits, false);

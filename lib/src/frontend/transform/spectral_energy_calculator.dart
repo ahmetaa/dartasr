@@ -1,3 +1,5 @@
+library dartasr;
+
 import 'dart:scalarlist';
 import 'dart:math';
 import '../frame_processor.dart';
