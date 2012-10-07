@@ -4,6 +4,7 @@ import 'dart:scalarlist';
 import 'dart:math';
 import '../frame_processor.dart';
 import '../framedata.dart';
+import '../../math/float_lists.dart';
 
 /**
  * reduced, modified and converted to Dart from LomontFFT code (www.lomont.org).
@@ -21,8 +22,7 @@ class SpectralEnergyCalculator implements FrameProcessor {
     Float64List cosTable;
     Float64List sinTable;
 
-    SpectralEnergyCalculator(int size) {
-        this.size = size;
+    SpectralEnergyCalculator(this.size) {
         if ((size & (size - 1)) != 0)
             throw new IllegalArgumentException("data length $size in FFT is not a power of 2");
         cosTable = new Float64List(size);
@@ -78,7 +78,7 @@ class SpectralEnergyCalculator implements FrameProcessor {
         }
         // apply padding
         if (size != data.length) {
-            data.insertRange(data.length, size-data.length, 0.0);
+            data = resize(data, size);
         }
 
         tableFFT(data);
@@ -215,8 +215,8 @@ class SpectralEnergyCalculator implements FrameProcessor {
         throw new ArgumentError("data length ${dataToProcess.length} is larger than FFT size = $size");
       }
       // apply padding
-      if (size != input.size) {
-        dataToProcess.insertRange(dataToProcess.length, size-dataToProcess.length, 0.0);
+      if (size != dataToProcess.length) {
+        dataToProcess = resize(dataToProcess, size);
       }
       realFft(dataToProcess);
       return input.copy(energy(dataToProcess));

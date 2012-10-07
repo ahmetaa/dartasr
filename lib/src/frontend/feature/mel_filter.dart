@@ -20,19 +20,14 @@ class MelFilterBank implements FrameProcessor {
   int sampleRate;
   int liftFreq;
 
-  MelFilterBank(double minFreq, double maxFreq, int filterAmount, int sampleRate, int energySpectrumSize, [int liftFreq]) {
+  MelFilterBank(this.minFreq, this.maxFreq, this.filterAmount, this.sampleRate, this.energySpectrumSize, [liftFreq]) {
     if (minFreq < 0)
       throw new ArgumentError("Minimum frequency value cannot be negative but it is: $minFreq");
     if (maxFreq <= 0)
       throw new ArgumentError("Maximum frequency value must be positive but it is: $maxFreq");
     if (minFreq >= maxFreq)
       throw new ArgumentError("Minimum frequency value must be smaller than maximum frequency value. But MinFreq= $minFreq MaxFreq= $maxFreq");
-    this.minFreq = minFreq;
-    this.maxFreq = maxFreq;
-    this.filterAmount = filterAmount;
     filters = new List<MelFilter>(filterAmount);
-    this.sampleRate = sampleRate;
-    this.energySpectrumSize = energySpectrumSize;    
     this.liftFreq = ?liftFreq ? liftFreq : 0;
     generateFilters();
   }
