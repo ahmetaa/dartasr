@@ -1,4 +1,4 @@
-import 'lm_vocabulary';
+import 'lm_vocabulary.dart';
 
 abstract class NgramLm {
 
