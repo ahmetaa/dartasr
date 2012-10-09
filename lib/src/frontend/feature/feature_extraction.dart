@@ -1,4 +1,3 @@
-import 'dart:scalarlist';
 import 'dart:math';
 import '../frame_processor.dart';
 import '../framedata.dart';
@@ -19,11 +18,11 @@ import '../../math/float_lists.dart';
  */
 class BatchCmn {
 
-    Float64List sums;
+    List<double> sums;
     int numberDataCepstra;
 
     BatchCmn(int featureLength) {
-        sums = new Float64List(featureLength);
+        sums = new List<double>(featureLength);
     }
 
     /// Applies Cepstral Mean Normalization to data. It uses the history of the perviously calculated mean values.

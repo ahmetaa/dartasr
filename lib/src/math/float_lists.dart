@@ -1,7 +1,5 @@
 library dartasr;
 
-import 'dart:scalarlist';
-
 /// multiplies two float lists and result is written to the [first] list.
 void multiplyToFirst(List<double> first, List<double> second) {
     for (int i = 0; i < first.length; i++) {

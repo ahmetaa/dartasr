@@ -1,14 +1,12 @@
 library dartasr;
 
-import 'dart:scalarlist';
-
 /**
  * This class represents a frame's data. It may carry arbitrary double values as data.
  * Each frame has a sequence and sample index value. To find the location of the frame in the source.
  */
 class FrameData {
 
-    Float64List _data;
+  List<double> _data;
     int sequenceId;
     int sampleIndex;
 
@@ -23,7 +21,7 @@ class FrameData {
     /**
      * Create a copy of this and replaces the data with [newData]
      */
-    FrameData copy(Float64List newData) {
+    FrameData copy(List<double> newData) {
         return new FrameData(newData, sequenceId, sampleIndex);        
     }
 

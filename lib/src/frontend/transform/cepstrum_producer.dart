@@ -1,6 +1,5 @@
 library dartasr;
 
-import 'dart:scalarlist';
 import 'dart:math';
 import '../frame_processor.dart';
 import '../framedata.dart';
@@ -23,12 +22,12 @@ class MelCepstrumProducer implements FrameProcessor {
     int numberMelFilters;
 
     /// matrix containing shifted cosine values.
-    List<Float64List> melcosine;
+    List<List<double>> melcosine;
 
     MelCepstrumProducer(int cepstrumSize, int numberMelFilters) {
         this.cepstrumSize = cepstrumSize;
         this.numberMelFilters = numberMelFilters;
-        melcosine = new List<Float64List>(cepstrumSize);
+        melcosine = new List<List<double>>(cepstrumSize);
         for(int i =0; i<cepstrumSize; i++) {
           melcosine[i]= new Float64List(numberMelFilters);
         }
@@ -43,7 +42,7 @@ class MelCepstrumProducer implements FrameProcessor {
       return input.copy(applyMelCosine(melspectrum));
     }
 
-    Float64List applyLog(Float64List melspectrum) {
+    Float64List applyLog(List<double> melspectrum) {
         if (melspectrum.length != numberMelFilters) {
             throw new ArgumentError ("MelSpectrum size is incorrect. length = ${melspectrum.length} numberMelFilters = ${numberMelFilters}");
         }
@@ -79,9 +78,9 @@ class MelCepstrumProducer implements FrameProcessor {
      * @param melspectrum the MelSpectrum data
      * @return MelCepstrum data produced by apply the MelCosine filter to the MelSpectrum data
      */
-    Float64List applyMelCosine(Float64List melspectrum) {
+    Float64List applyMelCosine(List<double> melspectrum) {
         // create the cepstrum
-        Float64List cepstrum = new Float64List(cepstrumSize);
+      List<double> cepstrum = new List<double>(cepstrumSize);
         double beta = 0.5;
         // apply the melcosine filter
         for (int i = 0; i < cepstrum.length; i++) {

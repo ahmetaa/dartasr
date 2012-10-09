@@ -1,7 +1,6 @@
 library dartasr;
 
 import 'dart:math';
-import 'dart:scalarlist';
 
 double LN0 = log(0);
 

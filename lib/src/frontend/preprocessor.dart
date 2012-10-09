@@ -1,6 +1,5 @@
 library dartasr;
 
-import 'dart:scalarlist';
 import 'dart:math';
 import 'frame_processor.dart';
 import 'framedata.dart';
@@ -79,7 +78,7 @@ class SampleNormalizer implements FrameProcessor {
  */
 class Dither implements FrameProcessor {
 
-    Float64List ditherLookup = new Float64List(512);
+  List<double> ditherLookup = new Float64List(512);
     final int MODULO = 511;
 
     Dither(int sampleSizeInBits, bool normalized) {
@@ -113,7 +112,7 @@ class Dither implements FrameProcessor {
  */
 class RaisedCosineWindow implements FrameProcessor {
     double alpha;
-    Float64List cosineWindow;
+    List<double> cosineWindow;
 
     RaisedCosineWindow(double alpha, int length) {
         if (length <= 0)
@@ -126,7 +125,7 @@ class RaisedCosineWindow implements FrameProcessor {
     }
 
     FrameData process(FrameData input) {
-        Float64List d = input.copyOfData;
+      List<double> d = input.copyOfData;
         multiplyToFirst(d, cosineWindow);
         return input.copy(d);
     }
@@ -167,7 +166,7 @@ class Preemphasizer implements FrameProcessor {
     }
 
     /** Applies pre-emphasis filter to the input Audio data. */
-    void applyPreemphasis(Float64List input) {
+    void applyPreemphasis(List<double> input) {
         // set the prior value for the next Audio
         double nextPrior = prior;
         if (input.length > 0) {

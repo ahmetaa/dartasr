@@ -1,6 +1,5 @@
 library dartasr;
 
-import 'dart:scalarlist';
 import 'dart:math';
 import 'log_math.dart';
 import 'float_lists.dart';

@@ -1,3 +1,5 @@
+library dartasr;
+
 /// Represents the vocabulary of the language model.
 class LmVocabulary {
     List<String> vocabulary;

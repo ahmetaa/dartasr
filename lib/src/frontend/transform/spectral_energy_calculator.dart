@@ -1,6 +1,5 @@
 library dartasr;
 
-import 'dart:scalarlist';
 import 'dart:math';
 import '../frame_processor.dart';
 import '../framedata.dart';
@@ -19,14 +18,14 @@ class SpectralEnergyCalculator implements FrameProcessor {
     /**
      * Pre-computed sine/cosine tables for speed
      */
-    Float64List cosTable;
-    Float64List sinTable;
+    List<double> cosTable;
+    List<double> sinTable;
 
     SpectralEnergyCalculator(this.size) {
         if ((size & (size - 1)) != 0)
             throw new IllegalArgumentException("data length $size in FFT is not a power of 2");
-        cosTable = new Float64List(size);
-        sinTable = new Float64List(size);
+        cosTable = new List<double>(size);
+        sinTable = new List<double>(size);
         _initialize();
     }
 
@@ -37,7 +36,7 @@ class SpectralEnergyCalculator implements FrameProcessor {
      *
      * @param data The complex data stored as alternating real and imaginary parts
      */
-    void tableFFT(Float64List data) {
+    void tableFFT(List<double> data) {
         int n = size ~/ 2;    // n is the number of samples
         reverse(data, n); // bit index data reversal
         int mmax = 1;
@@ -71,7 +70,7 @@ class SpectralEnergyCalculator implements FrameProcessor {
      * @param data The complex data stored as alternating real and imaginary parts
      * @throws IllegalArgumentException if data size is larger than FFT size
      */
-    void realFft(Float64List data) {
+    void realFft(List<double> data) {
 
         if (data.length > size) {
             throw new ArgumentError("data length ${data.length} is larger than FFT size = $size");
@@ -201,8 +200,8 @@ class SpectralEnergyCalculator implements FrameProcessor {
      * Calculates energy. [fftValues] contains interleaved complex numbers as [real0, imag0, real1, imag1...]
      * Returning energy value list is half the size of the [fftValues]. 
      */
-    Float64List energy(Float64List fftValues) {
-      Float64List energy = new Float64List(fftValues.length ~/ 2);
+    List<double> energy(List<double> fftValues) {
+      List<double> energy = new List<double>(fftValues.length ~/ 2);
         for (int i = 0; i < fftValues.length; i += 2) {
             energy[i >> 1] = fftValues[i] * fftValues[i] + fftValues[i + 1] * fftValues[i + 1];
         }
@@ -210,7 +209,7 @@ class SpectralEnergyCalculator implements FrameProcessor {
     }
 
     FrameData process(FrameData input) {
-      Float64List dataToProcess = input.copyOfData;      
+      List<double> dataToProcess = input.copyOfData;      
       if (input.size > size) {
         throw new ArgumentError("data length ${dataToProcess.length} is larger than FFT size = $size");
       }

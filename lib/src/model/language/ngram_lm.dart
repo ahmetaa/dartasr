@@ -1,3 +1,5 @@
+library dartasr;
+
 import 'lm_vocabulary.dart';
 
 abstract class NgramLm {
