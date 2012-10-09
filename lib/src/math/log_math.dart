@@ -13,6 +13,8 @@ double log2(double input) {
   return log(input)/LN2;
 }
 
+const double _SCALE = 1000.0;
+
 LogMath logMath = new LogMath();
 
 /**
@@ -26,7 +28,7 @@ LogMath logMath = new LogMath();
  */
 double logSum(double logA, double logB) {
   if (logA > logB) {
-    final double dif = logA - logB; // logA-logB because during lookup calculation dif is multiplied with -1
+    double dif = logA - logB; // logA-logB because during lookup calculation dif is multiplied with -1
     return dif >= 30.0 ? logA : logA + logMath.logSumLookup[(dif * _SCALE).toInt()];
   } else {
     final double dif = logB - logA;
@@ -66,13 +68,11 @@ double logSumExact(double logA, double logB) {
   }
 }
 
-double _SCALE = 1000.0;
-
 class LogMath {  
   
   static final LogMath _singleton = new LogMath._internal();
   
-  final Float64List logSumLookup = new Float64List(30000);
+  final logSumLookup = new List<double>(30000);
   
   factory LogMath() {
     return _singleton;

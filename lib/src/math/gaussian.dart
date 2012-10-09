@@ -1,3 +1,5 @@
+library dartasr;
+
 import 'dart:scalarlist';
 import 'dart:math';
 import 'log_math.dart';
@@ -54,10 +56,10 @@ class UnivariateGaussian {
  */
 class MultivariateDiagonalGaussian {
 
-    Float64List means;
-    Float64List variances;
-    Float64List negativeHalfPrecisions;
-    double logPrecomputedDistance;
+  List<double> means;
+  List<double> variances;
+  List<double> negativeHalfPrecisions;
+  List<double> logPrecomputedDistance;
 
     /**
      * Constructs a Diagonal Covariance Matrix Multivariate Gaussian with given mean and variance vector.
@@ -87,7 +89,7 @@ class MultivariateDiagonalGaussian {
     }
 
     /// Calculates log likelihood of the given vector [data].
-     double logLikelihood(List<double> data) {
+    double logLikelihood(List<double> data) {
         double result = logPrecomputedDistance;
         for (int i = 0; i < means.length; i++) {
             final double dif = data[i] - means[i];
