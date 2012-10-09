@@ -3,14 +3,15 @@ import 'dart:math';
 import 'dart:scalarlist';
 
 main() {
-  perfGaussian();
+  perfGaussian(10);
+  perfGaussian(100000);  
 }
 
 
-void perfGaussian() {
+void perfGaussian(int size) {
     Random random = new Random();
     final int dimension = 39;
-    List<List<double>> data = new List<List<double>>(100000);
+    List<List<double>> data = new List<List<double>>(size);
     for (int i = 0; i < data.length; i++) {
       data[i] = new Float64List(dimension);
       for (int j = 0; j < dimension; j++) {

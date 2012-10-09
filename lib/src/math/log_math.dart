@@ -42,7 +42,7 @@ double logSum(double logA, double logB) {
  * @param logValues log values to use in logSum calculation.
  * @return <p>log(a+b) value approximation
  */
-double logSumAll(Float64List logValues) {
+double logSumAll(List<double> logValues) {
   double result = LN0;
   for (double logValue in logValues) {
     result = logSum(result, logValue);
