@@ -35,8 +35,8 @@ class MelFilterBank implements FrameProcessor {
     return input.copy(applyFilter(input));
   }
 
-  Float64List applyFilter(FrameData input) {
-    var result = new Float64List(filterAmount);
+  List<double> applyFilter(FrameData input) {
+    var result = new List<double>(filterAmount);
     int j = 0;
     for (MelFilter filter in filters) {
       result[j++] = filter.apply(input.data);
@@ -49,8 +49,8 @@ class MelFilterBank implements FrameProcessor {
   *
    * @return mel frequency values (size = filterAmount)
    */
-  Float64List calculateMelFrequencies() {
-    var freqValues = new Float64List(filterAmount);
+  List<double> calculateMelFrequencies() {
+    var freqValues = new List<double>(filterAmount);
     double minMelFreq = linearToMel(minFreq);
     double maxMelFreq = linearToMel(maxFreq);
     double interval = (maxMelFreq - minMelFreq) / (filterAmount + 1);
@@ -69,7 +69,7 @@ class MelFilterBank implements FrameProcessor {
     Float64List melFreqs = calculateMelFrequencies();
 
     // calculate equivalent linear center frequencies
-    var centerFreqs = new Float64List(melFreqs.length);
+    var centerFreqs = new List<double>(melFreqs.length);
     for (int i = 0; i < centerFreqs.length; i++) {
       centerFreqs[i] = melToLinear(melFreqs[i]);
     }
@@ -104,7 +104,7 @@ class MelFilterBank implements FrameProcessor {
     if (totalWeights == 0)
       throw new ExpectException("There is no frequency value in filter bank limits!");
 
-    Float64List weights = new Float64List(totalWeights);
+    var weights = new List<double>(totalWeights);
 
     // we assume triangles are with the area of 1. So we calculate the height.
     // This is the standard procedure in sphinx-3,4
@@ -129,15 +129,15 @@ class MelFilterBank implements FrameProcessor {
 class MelFilter {
   int sampleStart;
   int sampleEnd;
-  Float64List weights;
+  List<double> weights;
 
-  MelFilter(int sampleStart, int sampleEnd, Float64List weights) {
+  MelFilter(int sampleStart, int sampleEnd, List<double> weights) {
     this.sampleStart = sampleStart;
     this.sampleEnd = sampleEnd;
     this.weights = weights;
   }
 
-  double apply(Float64List samples) {
+  double apply(List<double> samples) {
     double result = 0.0;
     for (int j = sampleStart; j < sampleEnd; j++) {
       result += (samples[j] * weights[j-sampleStart]);
