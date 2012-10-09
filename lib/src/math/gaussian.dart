@@ -59,7 +59,7 @@ class MultivariateDiagonalGaussian {
   List<double> means;
   List<double> variances;
   List<double> negativeHalfPrecisions;
-  List<double> logPrecomputedDistance;
+  double logPrecomputedDistance;
 
     /**
      * Constructs a Diagonal Covariance Matrix Multivariate Gaussian with given mean and variance vector.
@@ -74,7 +74,7 @@ class MultivariateDiagonalGaussian {
 
         // instead of using [-0.5 * 1/var[d]] during likelihood calculation we pre-compute the values.
         // This saves 1 mul 1 div operation.
-        negativeHalfPrecisions = new Float64List(variances.length);
+        negativeHalfPrecisions = new List<double>(variances.length);
         for (int i = 0; i < negativeHalfPrecisions.length; i++) {
             negativeHalfPrecisions[i] = -0.5 / variances[i];
         }
